@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Login — NeuroScan AI{% endblock %}
+
+{% block head %}
+<style>
+  .auth-wrap {
+    min-height: 85vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2.5rem;
+    animation: fadeIn .5s ease;
+  }
+  .auth-title {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: .3rem;
+    color: var(--text);
+  }
+  .auth-sub {
+    font-size: .95rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    letter-spacing: .05em;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .security-badge {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--muted);
+    padding: .7rem;
+    background: var(--surface2);
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .security-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    flex-shrink: 0;
+    animation: pulse-ring 2s infinite;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-title">Welcome back</div>
+    <div class="auth-sub">SIGN IN TO NEUROSCAN AI</div>
+
+    <div class="security-badge">
+      <div class="dot"></div>
+      Secured with bcrypt + salted hashing · Session cookies required
+    </div>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="your_username" autocomplete="username" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:.75rem;font-size:.85rem">
+        Sign In →
+      </button>
+    </form>
+
+    <hr class="divider">
+    <p class="text-center" style="font-family:var(--font-mono);font-size:.75rem;color:var(--muted)">
+      No account? <a href="{{ url_for('register') }}" style="color:var(--accent);text-decoration:none">Register here</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block title %}NeuroScan— Brain Tumor Detection{% endblock %}
+
+{% block head %}
+<style>
+  .hero {
+    min-height: 88vh;
+    display: grid;
+    place-items: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(0,212,255,.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: breathe 6s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.7; }
+    50%      { transform: translate(-50%,-50%) scale(1.15); opacity:1; }
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    animation: fadeIn .6s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.04em;
+    color: var(--text);
+    animation: fadeIn .6s .15s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero-sub {
+    max-width: 540px;
+    margin: 1.4rem auto 2.4rem;
+    color: var(--muted);
+    font-size: 1.2rem;
+    font-family: var(--font-body);
+    animation: fadeIn .6s .3s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn .6s .45s ease both;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, transform .3s;
+    animation: fadeIn .6s ease both;
+  }
+  .feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: .8rem;
+    display: block;
+  }
+  .feature-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    color: var(--text);
+  }
+  .feature-desc {
+    font-size: .98rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .section-label {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+  }
+
+  .disclaimer {
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    padding: 1.2rem 1.8rem;
+    background: rgba(239,68,68,.08);
+    border: 1px solid rgba(239,68,68,.25);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    color: #f87171;
+    text-align: center;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1">
+    <p class="hero-eyebrow">AI and Big Data - Powered</p>
+    <h1>Detect <em>Brain Tumors</em><br></h1>
+    <p class="hero-sub">Upload your MRI scan (.h5 or image) and get instant tumor segmentation, staging, and medical insights powered by a U-Net model trained on BraTS 2020.</p>
+    <div class="hero-cta">
+      {% if session.get('user') %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary" style="font-size:.9rem;padding:.7rem 1.8rem">Open Dashboard →</a>
+      {% else %}
+        <a href="{{ url_for('register') }}" class="btn btn-primary" style="font-size:.9rem;padding:.7rem 1.8rem">Get Started →</a>
+        <a href="{{ url_for('login') }}" class="btn btn-ghost" style="font-size:.9rem;padding:.7rem 1.5rem">Sign In</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<p class="section-label">— capabilities —</p>
+
+<div class="features">
+  <div class="feature-card" style="animation-delay:.1s">
+    <span class="feature-icon"></span>
+    <div class="feature-title">Tumor Segmentation</div>
+    <div class="feature-desc">U-Net architecture segments whole tumor, tumor core, and enhancing tumor regions from multi-modal MRI.</div>
+  </div>
+  <div class="feature-card" style="animation-delay:.2s">
+    <span class="feature-icon"></span>
+    <div class="feature-title">WHO Grade Staging</div>
+    <div class="feature-desc">Classifies detected gliomas into WHO Grades I–IV based on predicted lesion burden and radiomics features.</div>
+  </div>
+  <div class="feature-card" style="animation-delay:.3s">
+    <span class="feature-icon"></span>
+    <div class="feature-title">Clinical Insights</div>
+    <div class="feature-desc">Each prediction includes survival statistics, standard-of-care protocols, and molecular marker guidance.</div>
+  </div>
+  <div class="feature-card" style="animation-delay:.4s">
+    <span class="feature-icon"></span>
+    <div class="feature-title">Secure & Private</div>
+    <div class="feature-desc">bcrypt-hashed passwords, salted per-user, server-side sessions, HTTPONLY cookies. Your data stays yours.</div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ <strong>Research Prototype Only.</strong> NeuroScan is not a certified medical device and is not approved for clinical diagnosis. Always consult a licensed neuro-oncologist for medical decisions.
+</div>
+{% endblock %}

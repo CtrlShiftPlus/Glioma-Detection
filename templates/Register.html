@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Register — NeuroScan AI{% endblock %}
+{% block head %}
+<style>
+  .auth-wrap { min-height:85vh; display:grid; place-items:center; padding:2rem; }
+  .auth-card { width:100%; max-width:440px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:2.5rem; animation:fadeIn .5s ease; }
+  .auth-title { font-family:var(--font-head); font-size:2rem; font-weight:800; margin-bottom:.3rem; }
+  .auth-sub { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.05em; color:var(--muted); margin-bottom:2rem; }
+  .password-rules { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-top:.4rem; line-height:1.7; }
+  .divider { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-title">Create account</div>
+    <div class="auth-sub">JOIN NEUROSCAN AI — FREE RESEARCH ACCESS</div>
+
+    <form method="POST" action="{{ url_for('register') }}">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="choose a username" required minlength="3" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="min 8 characters" required minlength="8" />
+        <div class="password-rules">Must be at least 8 characters, include one uppercase letter, one number, and one special character.</div>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" name="confirm" placeholder="repeat password" required />
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:.75rem;font-size:.85rem">
+        Create Account →
+      </button>
+    </form>
+
+    <hr class="divider">
+    <p class="text-center" style="font-family:var(--font-mono);font-size:.75rem;color:var(--muted)">
+      Already registered? <a href="{{ url_for('login') }}" style="color:var(--accent);text-decoration:none">Sign in</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

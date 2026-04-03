@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Cookies Required — NeuroScan AI{% endblock %}
+{% block content %}
+<div style="min-height:80vh;display:grid;place-items:center;padding:2rem;">
+  <div style="max-width:480px;text-align:center;">
+    <div style="font-size:4rem;margin-bottom:1.5rem">🍪</div>
+    <h1 style="font-family:var(--font-head);font-size:2rem;font-weight:800;margin-bottom:1rem;color:var(--warning)">
+      Session Cookies Required
+    </h1>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:1.05rem">
+      NeuroScan AI uses <strong style="color:var(--text)">server-side session cookies</strong> for secure authentication. It appears your browser has cookies disabled or is blocking them.
+    </p>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;text-align:left;margin-bottom:1.8rem;">
+      <p style="font-family:var(--font-mono);font-size:.78rem;color:var(--muted);margin-bottom:.8rem;letter-spacing:.06em;text-transform:uppercase">How to enable cookies:</p>
+      <ul style="font-family:var(--font-mono);font-size:.8rem;color:var(--text);line-height:2.2;list-style:none;">
+        <li>🔵 Chrome: Settings → Privacy → Cookies → Allow all</li>
+        <li>🟠 Firefox: Settings → Privacy → Custom → Allow cookies</li>
+        <li>🔴 Safari: Preferences → Privacy → Uncheck "Block all"</li>
+        <li>🟢 Edge: Settings → Privacy → Cookies → Allow all</li>
+      </ul>
+    </div>
+    <a href="{{ url_for('login') }}" class="btn btn-primary" style="padding:.75rem 2rem;font-size:.9rem">
+      Try Again →
+    </a>
+  </div>
+</div>
+{% endblock %}
